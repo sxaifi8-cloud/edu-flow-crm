@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 
+// Fully Inlined, Turbopack Crash-Proof Icon System
 const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: string }) => {
   switch (name) {
     case 'pie-chart': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path strokeLinecap="round" strokeLinejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>;
@@ -26,7 +27,7 @@ const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: strin
     case 'bell': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>;
     case 'upload': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>;
     case 'file-text': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>;
-    case 'download': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"/></svg>;
+    case 'download': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>;
     case 'play': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
     case 'send': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>;
     case 'calendar': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
@@ -39,11 +40,11 @@ export default function EduFlowEnterpriseSuite() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'students' | 'leads' | 'staff' | 'timetable' | 'lms' | 'expenses' | 'finance' | 'settings'>('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  // LMS Portal Sub-Tab State
+  // LMS Portal State
   const [lmsRole, setLmsRole] = useState<'student' | 'teacher'>('student');
   const [activeLmsSubTab, setActiveLmsSubTab] = useState<'dashboard' | 'program' | 'assignments' | 'lectures' | 'results'>('dashboard');
 
-  // Modals & Popups
+  // Modals
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showAddStaffModal, setShowAddStaffModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
@@ -114,7 +115,6 @@ export default function EduFlowEnterpriseSuite() {
     { id: 'RET-302', name: 'Zunaira Aslam', phone: '+92 321 9988771', visitedDate: '5 Days Ago', interest: 'Spoken English Fluency', reason: 'Attended free trial, cold', stage: 'Trial Done', suggestedOffer: 'Free Speaking Mock Test' },
   ]);
 
-  // LMS MOCK DATA
   const [courseModules, setCourseModules] = useState([
     { id: 1, title: 'IELTS Academic Speaking Task 2 Masterclass', faculty: 'Sir Saif', type: 'Video Masterclass', tag: 'Band 8.0 Prep', duration: '48 Mins' },
     { id: 2, title: 'Oxford Pronunciation & Vowel Accent Drills', faculty: 'Ms. Rabia Zafar', type: 'PDF & Audio', tag: 'Spoken English', duration: '18 Pages' },
@@ -143,6 +143,7 @@ export default function EduFlowEnterpriseSuite() {
   const [admTrainer, setAdmTrainer] = useState('Sir Saif');
   const [admDiscount, setAdmDiscount] = useState('0');
   const [admPhotoPreview, setAdmPhotoPreview] = useState('');
+  const [admPhotoUploaded, setAdmPhotoUploaded] = useState(false);
 
   const [staffName, setStaffName] = useState('');
   const [staffRole, setStaffRole] = useState('Trainer');
@@ -152,6 +153,7 @@ export default function EduFlowEnterpriseSuite() {
   const [staffShift, setStaffShift] = useState('Morning');
   const [staffSalary, setStaffSalary] = useState('');
   const [staffPhotoPreview, setStaffPhotoPreview] = useState('');
+  const [staffPhotoUploaded, setStaffPhotoUploaded] = useState(false);
 
   const [expTitle, setExpTitle] = useState('');
   const [expCategory, setExpCategory] = useState('Marketing');
@@ -194,11 +196,14 @@ export default function EduFlowEnterpriseSuite() {
   }, [expensesList, expenseDateFilter]);
 
   // Handlers
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, setPreview: (url: string) => void) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, setPreview: (url: string) => void, setSuccess: (val: boolean) => void) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result as string);
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+        setSuccess(true);
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -221,6 +226,7 @@ export default function EduFlowEnterpriseSuite() {
     };
     setStudentsRoster([newStudent, ...studentsRoster]);
     setShowAddStudentModal(false);
+    setAdmPhotoUploaded(false);
   };
 
   const handleAddStaffMember = (e: React.FormEvent) => {
@@ -231,6 +237,7 @@ export default function EduFlowEnterpriseSuite() {
     };
     setStaffRoster([...staffRoster, newStaff]);
     setShowAddStaffModal(false);
+    setStaffPhotoUploaded(false);
   };
 
   const handleAddExpense = (e: React.FormEvent) => {
@@ -419,7 +426,7 @@ export default function EduFlowEnterpriseSuite() {
                   <div className="flex items-center justify-between mb-4">
                     <div><h3 className="font-bold text-slate-800 text-sm">Revenue vs Operating Expenditures</h3><p className="text-xs text-slate-400">Tuition collected against faculty payroll and advertising</p></div>
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="flex items-center gap-1 text-emerald-700 font-semibold"><span className="w-3 h-3 bg-emerald-500 rounded"></span> Revenue</span>
+                      <span className="flex items-center gap-1 text-emerald-700 font-semibold"><span className="w-3 h-3 bg-emerald-500 rounded"></span> Invoiced Revenue</span>
                       <span className="flex items-center gap-1 text-rose-600 font-semibold"><span className="w-3 h-3 bg-rose-400 rounded"></span> Expenses</span>
                     </div>
                   </div>
@@ -487,14 +494,14 @@ export default function EduFlowEnterpriseSuite() {
                 <div><h3 className="font-extrabold text-slate-900 text-base">Students Academic Dossier Directory</h3><p className="text-xs text-slate-400">Click any student row to view full admission dossier and CNIC details</p></div>
                 <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
                   <div className="relative flex-1 md:w-64"><input type="text" placeholder="Search name, phone, CNIC, roll #..." value={studentSearchQuery} onChange={(e) => setStudentSearchQuery(e.target.value)} className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-hidden" /><div className="absolute left-2.5 top-2.5 text-slate-400"><Icon name="search" className="w-3.5 h-3.5" /></div></div>
-                  <select value={selectedCourseFilter} onChange={(e) => setSelectedCourseFilter(e.target.value)} className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-medium focus:ring-2 focus:ring-emerald-500"><option value="All">All Courses</option><option value="IELTS">IELTS Academic</option><option value="Spoken">Spoken English</option><option value="PTE">PTE Intensive</option><option value="German">German Language</option><option value="Business">Business English</option></select>
+                  <select value={selectedCourseFilter} onChange={(e) => setSelectedCourseFilter(e.target.value)} className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-medium focus:ring-2 focus:ring-emerald-500"><option value="All">All Courses</option><option value="IELTS">IELTS Academic</option><option value="Spoken">Spoken English</option><option value="PTE">PTE Intensive</option><option value="Business">Business English</option></select>
                   <button onClick={() => setShowAddStudentModal(true)} className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-xs"><Icon name="plus" className="w-3.5 h-3.5" /> + New Admission</button>
                 </div>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
-                    <tr><th className="p-3">Roll #</th><th className="p-3">Student Photo & Name</th><th className="p-3">Enrolled Program</th><th className="p-3">Shift & Timings</th><th className="p-3">Tuition Fee</th><th className="p-3">Fee Status</th><th className="p-3 text-right">Action</th></tr>
+                    <tr><th className="p-3">Roll #</th><th className="p-3">Student Photo & Name</th><th className="p-3">Enrolled Program</th><th className="p-3">Shift & Timings</th><th className="p-3">Assigned Faculty</th><th className="p-3">Tuition Fee</th><th className="p-3">Fee Status</th><th className="p-3 text-right">Action</th></tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {filteredStudents.map((stu) => (
@@ -503,6 +510,7 @@ export default function EduFlowEnterpriseSuite() {
                         <td className="p-3 font-bold text-slate-900 flex items-center gap-2.5"><img src={stu.photo} alt={stu.name} className="w-9 h-9 rounded-full object-cover border-2 border-emerald-500 shrink-0 shadow-xs" /><div>{stu.name}<p className="text-[10px] text-slate-400 font-mono font-normal">{stu.phone} • {stu.cnic}</p></div></td>
                         <td className="p-3"><div className="flex flex-wrap gap-1">{stu.courses.map((c, i) => (<span key={i} className="text-[10px] bg-slate-100 text-slate-800 px-2 py-0.5 rounded font-semibold">{c}</span>))}</div></td>
                         <td className="p-3"><span className="font-bold text-slate-800 block">{stu.shift}</span><span className="text-[10px] text-slate-500 font-mono flex items-center gap-1 mt-0.5"><Icon name="clock" className="w-2.5 h-2.5 text-emerald-600" /> {stu.timing}</span></td>
+                        <td className="p-3 font-semibold text-slate-800">{stu.trainer}</td>
                         <td className="p-3 font-semibold text-slate-800">PKR {stu.feePaid.toLocaleString()}</td>
                         <td className="p-3"><span className={`text-[10px] font-bold px-2 py-0.5 rounded ${stu.feeStatus.includes('Paid') ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>{stu.feeStatus}</span></td>
                         <td className="p-3 text-right">
@@ -696,12 +704,9 @@ export default function EduFlowEnterpriseSuite() {
           )}
         </div>
 
-        {/* ======================================================== */}
-        {/* PURE ISOLATED LMS ACADEMIC PORTAL                        */}
-        {/* ======================================================== */}
+        {/* LMS FULL VIEW HANDLED IN ITS OWN BLOCK EARLIER */}
         {activeTab === 'lms' && (
           <div className="flex-1 flex flex-col bg-[#F8FAFC]">
-            {/* 1. LMS Top Header */}
             <div className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shadow-xs sticky top-0 z-20">
               <div className="flex items-center gap-3">
                 <button onClick={() => setMobileMenuOpen(true)} className="md:hidden text-slate-600 p-1"><Icon name="menu" className="w-6 h-6" /></button>
@@ -725,7 +730,6 @@ export default function EduFlowEnterpriseSuite() {
               </div>
             </div>
 
-            {/* 2. Interactive Clickable LMS Top Navigation Bar */}
             <div className="bg-[#0A1128] text-slate-300 px-6 py-2 flex items-center justify-between text-xs font-semibold overflow-x-auto border-b border-slate-800">
               <div className="flex items-center gap-2">
                 {[{ id: 'dashboard', label: 'Dashboard' }, { id: 'program', label: 'My Program & Outline' }, { id: 'assignments', label: 'Assignments & Quizzes' }, { id: 'lectures', label: 'Lecture Notes & Videos' }, { id: 'results', label: 'Assessment Results' }].map(tab => (
@@ -735,7 +739,6 @@ export default function EduFlowEnterpriseSuite() {
               <div className="text-[11px] text-slate-400 hidden lg:block font-mono">Academic Session: <strong className="text-amber-400">Fall 2026</strong></div>
             </div>
 
-            {/* 3. LMS Tab Content Router */}
             <div className="p-6 md:p-8 space-y-6">
               {activeLmsSubTab === 'dashboard' && lmsRole === 'student' && (
                 <>
@@ -840,7 +843,6 @@ export default function EduFlowEnterpriseSuite() {
                 </div>
               )}
 
-              {/* TEACHER ROLE VIEW */}
               {lmsRole === 'teacher' && (
                 <div className="space-y-6">
                   <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -972,6 +974,7 @@ export default function EduFlowEnterpriseSuite() {
                   <div className="flex-1">
                     <label className="block text-slate-800 font-bold mb-1">Faculty Profile Picture *</label>
                     <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, setStaffPhotoPreview, setStaffPhotoUploaded)} className="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:bg-slate-800 file:text-white file:font-semibold cursor-pointer" />
+                    {staffPhotoUploaded && <p className="text-[11px] text-emerald-600 font-bold flex items-center gap-1 mt-1.5"><Icon name="check" className="w-3.5 h-3.5" /> Photo uploaded successfully!</p>}
                   </div>
                 </div>
 
@@ -1128,9 +1131,51 @@ export default function EduFlowEnterpriseSuite() {
                 </div>
                 <div className="text-xs space-y-3">
                   <div className="p-3 rounded-lg bg-slate-50 border space-y-1.5"><p><strong>Guardian:</strong> {inspectedStudent.guardian}</p><p><strong>WhatsApp:</strong> {inspectedStudent.phone}</p><p><strong>Shift:</strong> {inspectedStudent.shift} ({inspectedStudent.timing})</p><p><strong>Faculty:</strong> {inspectedStudent.trainer}</p></div>
+                  <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200 space-y-1.5"><p><strong>Status:</strong> {inspectedStudent.feeStatus}</p><p><strong>Attendance:</strong> {inspectedStudent.attendancePct}</p></div>
+                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1"><p className="font-bold text-slate-800">Enrolled Programs:</p><ul className="list-disc list-inside text-slate-600">{inspectedStudent.courses.map((c: string, idx: number) => <li key={idx}>{c}</li>)}</ul><p className="font-bold text-slate-900 pt-2">Tuition Invoiced: PKR {inspectedStudent.feePaid.toLocaleString()}</p></div>
                 </div>
               </div>
-              <button onClick={() => setInspectedStudent(null)} className="w-full bg-slate-900 text-white font-bold text-xs py-2.5 rounded-lg">Close</button>
+              <div className="pt-4 border-t border-slate-200 flex gap-2">
+                <button onClick={() => alert(`Printing verified student registration card for ${inspectedStudent.name}`)} className="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Print Verified Dossier</button>
+                <button onClick={() => setInspectedStudent(null)} className="px-4 py-2.5 border border-slate-300 rounded-lg text-slate-600 text-xs font-semibold">Close</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {inspectedExpense && (
+          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-end z-50">
+            <div className="bg-white w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
+              <div className="space-y-4">
+                <div className="flex justify-between items-start border-b border-slate-200 pb-3">
+                  <div><span className="text-[10px] bg-rose-100 text-rose-800 font-mono font-bold px-2 py-0.5 rounded">{inspectedExpense.id}</span><h3 className="font-extrabold text-slate-900 text-base mt-1">{inspectedExpense.title}</h3><p className="text-xs text-slate-400">Ref: {inspectedExpense.reference}</p></div>
+                  <button onClick={() => setInspectedExpense(null)} className="text-slate-400 hover:text-slate-600"><Icon name="x" className="w-5 h-5" /></button>
+                </div>
+                <div className="text-xs space-y-3">
+                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"><p><strong className="text-slate-700">Disbursed To:</strong> {inspectedExpense.paidTo}</p><p><strong className="text-slate-700">Disbursement Category:</strong> {inspectedExpense.category}</p><p><strong className="text-slate-700">Payment Channel:</strong> {inspectedExpense.method}</p><p><strong className="text-slate-700">Disbursement Date:</strong> {inspectedExpense.date}</p></div>
+                  <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 flex justify-between items-center"><span className="font-bold text-rose-900">Total Outflow Amount:</span><span className="text-lg font-black text-rose-700">PKR {inspectedExpense.amount.toLocaleString()}</span></div>
+                  {inspectedExpense.receiptPhoto && (<div className="p-3 rounded-lg bg-slate-50 border border-slate-200"><p className="font-bold text-slate-800 mb-2">Scanned Receipt / Slip:</p><img src={inspectedExpense.receiptPhoto} alt="Receipt" className="w-full h-36 object-cover rounded-lg border border-slate-300" /></div>)}
+                </div>
+              </div>
+              <div className="pt-4 border-t border-slate-200"><button onClick={() => setInspectedExpense(null)} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Close Inspection</button></div>
+            </div>
+          </div>
+        )}
+
+        {inspectedLedgerItem && (
+          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-end z-50">
+            <div className="bg-white w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
+              <div className="space-y-4">
+                <div className="flex justify-between items-start border-b border-slate-200 pb-3">
+                  <div><span className="text-[10px] bg-purple-100 text-purple-800 font-mono font-bold px-2 py-0.5 rounded">Audited Ledger Line</span><h3 className="font-extrabold text-slate-900 text-base mt-1">{inspectedLedgerItem.title}</h3><p className="text-xs text-slate-400">{inspectedLedgerItem.category}</p></div>
+                  <button onClick={() => setInspectedLedgerItem(null)} className="text-slate-400 hover:text-slate-600"><Icon name="x" className="w-5 h-5" /></button>
+                </div>
+                <div className="text-xs space-y-3">
+                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"><p><strong className="text-slate-700">Ledger Balance:</strong> PKR {inspectedLedgerItem.amount.toLocaleString()}</p><p><strong className="text-slate-700">Accounting Policy:</strong> Accrual basis (IFRS compliant)</p><p><strong className="text-slate-700">Auditor Notes:</strong> {inspectedLedgerItem.notes}</p></div>
+                  <div className="p-3 rounded-lg bg-blue-50/60 border border-blue-200 space-y-1"><p className="font-bold text-blue-900 mb-1">Supporting Vouchers Attached:</p><div className="flex flex-wrap gap-1.5">{inspectedLedgerItem.vouchers.map((v, i) => (<span key={i} className="text-[10px] bg-white border border-blue-300 font-mono px-2 py-0.5 rounded font-bold text-blue-800">{v}</span>))}</div></div>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-slate-200"><button onClick={() => setInspectedLedgerItem(null)} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Close Audit Sheet</button></div>
             </div>
           </div>
         )}
