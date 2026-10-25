@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 
-// Fully Inlined, Turbopack Crash-Proof Icon System
 const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: string }) => {
   switch (name) {
     case 'pie-chart': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path strokeLinecap="round" strokeLinejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>;
@@ -27,7 +26,7 @@ const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: strin
     case 'bell': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>;
     case 'upload': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>;
     case 'file-text': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>;
-    case 'download': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>;
+    case 'download': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"/></svg>;
     case 'play': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
     case 'send': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>;
     case 'calendar': return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
@@ -40,11 +39,11 @@ export default function EduFlowEnterpriseSuite() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'students' | 'leads' | 'staff' | 'timetable' | 'lms' | 'expenses' | 'finance' | 'settings'>('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  // LMS Portal State
+  // LMS Portal Sub-Tab State
   const [lmsRole, setLmsRole] = useState<'student' | 'teacher'>('student');
   const [activeLmsSubTab, setActiveLmsSubTab] = useState<'dashboard' | 'program' | 'assignments' | 'lectures' | 'results'>('dashboard');
 
-  // Modals
+  // Modals & Popups
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showAddStaffModal, setShowAddStaffModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
@@ -70,14 +69,20 @@ export default function EduFlowEnterpriseSuite() {
   const [selectedCourseFilter, setSelectedCourseFilter] = useState('All');
   const [expenseDateFilter, setExpenseDateFilter] = useState<'all' | 'today' | 'yesterday'>('all');
 
+  // Director / Owner Profile
+  const [directorProfile, setDirectorProfile] = useState({
+    name: 'Director / Executive Office',
+    email: 'director@britishinstitute.pk',
+    phone: '+92 51 11122233',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+  });
+  const [tempDirectorPhoto, setTempDirectorPhoto] = useState('');
+
   // Pinned Notice
   const [showReminder, setShowReminder] = useState(true);
   const [reminderText, setReminderText] = useState('Director Reminder: Fall 2026 Orientation starts at 5:00 PM today in Main Hall.');
 
   const institute = { name: "British Institute for Spoken English", campus: "Islamabad Main Campus", regNo: "ED-ISB-2026", accountingCycle: "Quarter ending Q4 2026" };
-
-  const [directorProfile, setDirectorProfile] = useState({ name: 'Director Office', email: 'director@britishinstitute.pk', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150' });
-  const [tempDirectorPhoto, setTempDirectorPhoto] = useState('');
 
   const courseCatalog = [
     { id: 'c1', name: 'IELTS Academic 7.5+ Masterclass', fee: 28000, duration: '2 Months', color: '#10B981' },
@@ -90,6 +95,8 @@ export default function EduFlowEnterpriseSuite() {
     { id: 'STU-101', name: 'Usman Ali', guardian: 'Muhammad Tariq', cnic: '37405-1234567-1', phone: '+92 301 2345678', courses: ['IELTS Academic 7.5+', 'Spoken English'], shift: 'Evening', timing: '06:00 PM - 08:00 PM', feePaid: 46000, feeStatus: 'Paid', attendancePct: '94%', trainer: 'Sir Saif', date: 'Today', photo: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120' },
     { id: 'STU-102', name: 'Sana Fatima', guardian: 'Rashid Khan', cnic: '61101-9876543-2', phone: '+92 322 9876543', courses: ['Spoken English Fluency & Accent'], shift: 'Morning', timing: '10:00 AM - 11:30 AM', feePaid: 18000, feeStatus: 'Paid', attendancePct: '88%', trainer: 'Ms. Rabia Zafar', date: 'Today', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120' },
     { id: 'STU-103', name: 'Muhammad Waqas', guardian: 'Abdul Ghafoor', cnic: '35202-3344556-3', phone: '+92 334 1122334', courses: ['PTE Academic Intensive'], shift: 'Noon', timing: '03:00 PM - 04:30 PM', feePaid: 10000, feeStatus: 'Pending (15k due)', attendancePct: '91%', trainer: 'Sir Bilal Tariq', date: 'Yesterday', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120' },
+    { id: 'STU-104', name: 'Maryam Noor', guardian: 'Noor Alam', cnic: '37405-5566778-4', phone: '+92 315 5566778', courses: ['Business English & Public Speaking'], shift: 'Weekend VIP', timing: '11:00 AM - 02:00 PM', feePaid: 32000, feeStatus: 'Paid', attendancePct: '100%', trainer: 'Sir Saif', date: 'Oct 20, 2026', photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120' },
+    { id: 'STU-105', name: 'Hamza Tariq', guardian: 'Tariq Mehmood', cnic: '37405-9928172-5', phone: '+92 345 9928172', courses: ['IELTS Academic 7.5+ Masterclass'], shift: 'Evening', timing: '06:00 PM - 08:00 PM', feePaid: 14000, feeStatus: 'Pending (14k due)', attendancePct: '96%', trainer: 'Sir Saif', date: 'Oct 19, 2026', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120' },
   ]);
 
   const [staffRoster, setStaffRoster] = useState([
@@ -106,6 +113,24 @@ export default function EduFlowEnterpriseSuite() {
     { id: 'RET-301', name: 'Bilal Hassan', phone: '+92 302 4455667', visitedDate: '3 Days Ago', interest: 'IELTS Academic', reason: 'High fee', stage: 'Follow-Up Due', suggestedOffer: 'PKR 3,000 Early Bird Voucher' },
     { id: 'RET-302', name: 'Zunaira Aslam', phone: '+92 321 9988771', visitedDate: '5 Days Ago', interest: 'Spoken English Fluency', reason: 'Attended free trial, cold', stage: 'Trial Done', suggestedOffer: 'Free Speaking Mock Test' },
   ]);
+
+  // LMS MOCK DATA
+  const [courseModules, setCourseModules] = useState([
+    { id: 1, title: 'IELTS Academic Speaking Task 2 Masterclass', faculty: 'Sir Saif', type: 'Video Masterclass', tag: 'Band 8.0 Prep', duration: '48 Mins' },
+    { id: 2, title: 'Oxford Pronunciation & Vowel Accent Drills', faculty: 'Ms. Rabia Zafar', type: 'PDF & Audio', tag: 'Spoken English', duration: '18 Pages' },
+  ]);
+
+  const [studentAssignments, setStudentAssignments] = useState([
+    { id: 'SUB-901', student: 'Usman Ali', course: 'IELTS Academic 7.5+', file: 'Task2_Opinion_Essay.docx', format: 'DOCX (Word)', status: 'Graded (Band 7.5)', date: 'Oct 23, 2026', teacher: 'Sir Saif' },
+    { id: 'SUB-902', student: 'Sana Fatima', course: 'Spoken English Fluency', file: 'Week2_Vocabulary_Drill.pdf', format: 'PDF', status: 'Submitted (Pending Review)', date: 'Oct 24, 2026', teacher: 'Ms. Rabia Zafar' },
+  ]);
+
+  const studentResultReport = {
+    examTitle: 'IELTS Academic Diagnostic Mock #04', candidate: 'Usman Ali (STU-101)', date: 'Oct 20, 2026',
+    overallBand: 7.5, listening: 8.0, reading: 7.5, writing: 7.0, speaking: 8.0,
+    remarks: 'Candidate demonstrates strong lexical resource and clear phonetic control. Task 2 coherence meets Band 8.0 standard.',
+    evaluator: 'Sir Saif (Official IELTS Trainer)'
+  };
 
   // Form Inputs
   const [admFullName, setAdmFullName] = useState('');
@@ -133,6 +158,16 @@ export default function EduFlowEnterpriseSuite() {
   const [expAmount, setExpAmount] = useState('');
   const [expPaidTo, setExpPaidTo] = useState('');
   const [expPhotoPreview, setExpPhotoPreview] = useState('');
+
+  const [assignmentTitle, setAssignmentTitle] = useState('IELTS Task 2 Essay');
+  const [assignmentCourse, setAssignmentCourse] = useState('IELTS Academic 7.5+ Masterclass');
+  const [assignmentFileName, setAssignmentFileName] = useState('');
+  const [assignmentFileType, setAssignmentFileType] = useState('');
+  const [assignmentSuccess, setAssignmentSuccess] = useState(false);
+
+  const [newLectureTitle, setNewLectureTitle] = useState('');
+  const [newLectureCourse, setNewLectureCourse] = useState('IELTS Academic 7.5+ Masterclass');
+  const [newLectureVideoUrl, setNewLectureVideoUrl] = useState('');
 
   // Calculations
   const totalTuitionRevenue = useMemo(() => studentsRoster.reduce((sum, s) => sum + s.feePaid, 771000), [studentsRoster]);
@@ -168,6 +203,16 @@ export default function EduFlowEnterpriseSuite() {
     }
   };
 
+  const toggleAdmCourse = (courseName: string) => {
+    if (admSelectedCourses.includes(courseName)) {
+      if (admSelectedCourses.length > 1) {
+        setAdmSelectedCourses(admSelectedCourses.filter(c => c !== courseName));
+      }
+    } else {
+      setAdmSelectedCourses([...admSelectedCourses, courseName]);
+    }
+  };
+
   const handleEnrollStudent = (e: React.FormEvent) => {
     e.preventDefault();
     if (!admFullName || !admPhone) return;
@@ -196,6 +241,42 @@ export default function EduFlowEnterpriseSuite() {
     };
     setExpensesList([newExpense, ...expensesList]);
     setShowAddExpenseModal(false);
+  };
+
+  const handleAssignmentFilePick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAssignmentFileName(file.name);
+      const ext = file.name.split('.').pop()?.toUpperCase() || 'FILE';
+      setAssignmentFileType(ext);
+      setAssignmentSuccess(true);
+    }
+  };
+
+  const handleAssignmentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!assignmentFileName) return;
+    const newSub = {
+      id: `SUB-${Math.floor(900 + Math.random() * 99)}`, student: 'Usman Ali (You)', course: assignmentCourse, file: assignmentFileName, format: `${assignmentFileType} Document`, status: 'Submitted (Pending Review)', date: 'Just Now', teacher: assignmentCourse.includes('IELTS') ? 'Sir Saif' : 'Ms. Rabia Zafar'
+    };
+    setStudentAssignments([newSub, ...studentAssignments]);
+    setShowAssignmentModal(false);
+    setAssignmentSuccess(false);
+    setAssignmentFileName('');
+    alert('Assignment file successfully uploaded to British Institute LMS portal!');
+  };
+
+  const handleTeacherUpload = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newLectureTitle) return;
+    const newMod = {
+      id: courseModules.length + 1, title: newLectureTitle, faculty: 'Sir Saif (You)', type: newLectureVideoUrl ? 'Video Masterclass' : 'PDF Worksheet', tag: newLectureCourse.split(' ')[0], duration: '45 Mins'
+    };
+    setCourseModules([newMod, ...courseModules]);
+    setShowTeacherUploadModal(false);
+    setNewLectureTitle('');
+    setNewLectureVideoUrl('');
+    alert('Lecture published successfully to enrolled student dashboards!');
   };
 
   const openWhatsApp = (phone: string, name: string, courses: string[]) => {
@@ -413,7 +494,7 @@ export default function EduFlowEnterpriseSuite() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
-                    <tr><th className="p-3">Roll #</th><th className="p-3">Student Photo & Name</th><th className="p-3">Enrolled Program</th><th className="p-3">Shift & Timings</th><th className="p-3">Assigned Faculty</th><th className="p-3">Tuition Fee</th><th className="p-3">Fee Status</th><th className="p-3 text-right">Action</th></tr>
+                    <tr><th className="p-3">Roll #</th><th className="p-3">Student Photo & Name</th><th className="p-3">Enrolled Program</th><th className="p-3">Shift & Timings</th><th className="p-3">Tuition Fee</th><th className="p-3">Fee Status</th><th className="p-3 text-right">Action</th></tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {filteredStudents.map((stu) => (
@@ -422,7 +503,6 @@ export default function EduFlowEnterpriseSuite() {
                         <td className="p-3 font-bold text-slate-900 flex items-center gap-2.5"><img src={stu.photo} alt={stu.name} className="w-9 h-9 rounded-full object-cover border-2 border-emerald-500 shrink-0 shadow-xs" /><div>{stu.name}<p className="text-[10px] text-slate-400 font-mono font-normal">{stu.phone} • {stu.cnic}</p></div></td>
                         <td className="p-3"><div className="flex flex-wrap gap-1">{stu.courses.map((c, i) => (<span key={i} className="text-[10px] bg-slate-100 text-slate-800 px-2 py-0.5 rounded font-semibold">{c}</span>))}</div></td>
                         <td className="p-3"><span className="font-bold text-slate-800 block">{stu.shift}</span><span className="text-[10px] text-slate-500 font-mono flex items-center gap-1 mt-0.5"><Icon name="clock" className="w-2.5 h-2.5 text-emerald-600" /> {stu.timing}</span></td>
-                        <td className="p-3 font-semibold text-slate-800">{stu.trainer}</td>
                         <td className="p-3 font-semibold text-slate-800">PKR {stu.feePaid.toLocaleString()}</td>
                         <td className="p-3"><span className={`text-[10px] font-bold px-2 py-0.5 rounded ${stu.feeStatus.includes('Paid') ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>{stu.feeStatus}</span></td>
                         <td className="p-3 text-right">
@@ -616,7 +696,9 @@ export default function EduFlowEnterpriseSuite() {
           )}
         </div>
 
-        {/* LMS FULL VIEW HANDLED IN ITS OWN BLOCK EARLIER */}
+        {/* ======================================================== */}
+        {/* PURE ISOLATED LMS ACADEMIC PORTAL                        */}
+        {/* ======================================================== */}
         {activeTab === 'lms' && (
           <div className="flex-1 flex flex-col bg-[#F8FAFC]">
             {/* 1. LMS Top Header */}
@@ -869,7 +951,7 @@ export default function EduFlowEnterpriseSuite() {
           </div>
         )}
 
-        {/* MODAL: ADD FACULTY / STAFF (LIVE PHOTO PREVIEW) */}
+        {/* MODAL: ADD FACULTY */}
         {showAddStaffModal && (
           <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-200">
@@ -1045,52 +1127,10 @@ export default function EduFlowEnterpriseSuite() {
                   <button onClick={() => setInspectedStudent(null)} className="text-slate-400 hover:text-slate-600"><Icon name="x" className="w-5 h-5" /></button>
                 </div>
                 <div className="text-xs space-y-3">
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"><p><strong className="text-slate-700">Father / Guardian:</strong> {inspectedStudent.guardian}</p><p><strong className="text-slate-700">WhatsApp Contact:</strong> {inspectedStudent.phone}</p><p><strong className="text-slate-700">Enrolled Date:</strong> {inspectedStudent.date}</p></div>
-                  <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200 space-y-1.5"><p><strong className="text-emerald-900">Shift:</strong> {inspectedStudent.shift}</p><p><strong className="text-emerald-900">Class Timings:</strong> {inspectedStudent.timing}</p><p><strong className="text-emerald-900">Assigned Faculty:</strong> {inspectedStudent.trainer}</p><p><strong className="text-emerald-900">Attendance Ratio:</strong> {inspectedStudent.attendancePct}</p></div>
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1"><p className="font-bold text-slate-800">Enrolled Programs:</p><ul className="list-disc list-inside text-slate-600">{inspectedStudent.courses.map((c: string, idx: number) => <li key={idx}>{c}</li>)}</ul><p className="font-bold text-slate-900 pt-2">Tuition Invoiced: PKR {inspectedStudent.feePaid.toLocaleString()}</p></div>
+                  <div className="p-3 rounded-lg bg-slate-50 border space-y-1.5"><p><strong>Guardian:</strong> {inspectedStudent.guardian}</p><p><strong>WhatsApp:</strong> {inspectedStudent.phone}</p><p><strong>Shift:</strong> {inspectedStudent.shift} ({inspectedStudent.timing})</p><p><strong>Faculty:</strong> {inspectedStudent.trainer}</p></div>
                 </div>
               </div>
-              <div className="pt-4 border-t border-slate-200 flex gap-2">
-                <button onClick={() => alert(`Printing verified student registration card for ${inspectedStudent.name}`)} className="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Print Verified Dossier</button>
-                <button onClick={() => setInspectedStudent(null)} className="px-4 py-2.5 border border-slate-300 rounded-lg text-slate-600 text-xs font-semibold">Close</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {inspectedExpense && (
-          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-end z-50">
-            <div className="bg-white w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
-              <div className="space-y-4">
-                <div className="flex justify-between items-start border-b border-slate-200 pb-3">
-                  <div><span className="text-[10px] bg-rose-100 text-rose-800 font-mono font-bold px-2 py-0.5 rounded">{inspectedExpense.id}</span><h3 className="font-extrabold text-slate-900 text-base mt-1">{inspectedExpense.title}</h3><p className="text-xs text-slate-400">Ref: {inspectedExpense.reference}</p></div>
-                  <button onClick={() => setInspectedExpense(null)} className="text-slate-400 hover:text-slate-600"><Icon name="x" className="w-5 h-5" /></button>
-                </div>
-                <div className="text-xs space-y-3">
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"><p><strong className="text-slate-700">Disbursed To:</strong> {inspectedExpense.paidTo}</p><p><strong className="text-slate-700">Disbursement Category:</strong> {inspectedExpense.category}</p><p><strong className="text-slate-700">Payment Channel:</strong> {inspectedExpense.method}</p><p><strong className="text-slate-700">Disbursement Date:</strong> {inspectedExpense.date}</p></div>
-                  <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 flex justify-between items-center"><span className="font-bold text-rose-900">Total Outflow Amount:</span><span className="text-lg font-black text-rose-700">PKR {inspectedExpense.amount.toLocaleString()}</span></div>
-                  {inspectedExpense.receiptPhoto && (<div className="p-3 rounded-lg bg-slate-50 border border-slate-200"><p className="font-bold text-slate-800 mb-2">Scanned Receipt / Slip:</p><img src={inspectedExpense.receiptPhoto} alt="Receipt" className="w-full h-36 object-cover rounded-lg border border-slate-300" /></div>)}
-                </div>
-              </div>
-              <div className="pt-4 border-t border-slate-200"><button onClick={() => setInspectedExpense(null)} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Close Inspection</button></div>
-            </div>
-          </div>
-        )}
-
-        {inspectedLedgerItem && (
-          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-end z-50">
-            <div className="bg-white w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
-              <div className="space-y-4">
-                <div className="flex justify-between items-start border-b border-slate-200 pb-3">
-                  <div><span className="text-[10px] bg-purple-100 text-purple-800 font-mono font-bold px-2 py-0.5 rounded">Audited Ledger Line</span><h3 className="font-extrabold text-slate-900 text-base mt-1">{inspectedLedgerItem.title}</h3><p className="text-xs text-slate-400">{inspectedLedgerItem.category}</p></div>
-                  <button onClick={() => setInspectedLedgerItem(null)} className="text-slate-400 hover:text-slate-600"><Icon name="x" className="w-5 h-5" /></button>
-                </div>
-                <div className="text-xs space-y-3">
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"><p><strong className="text-slate-700">Ledger Balance:</strong> PKR {inspectedLedgerItem.amount.toLocaleString()}</p><p><strong className="text-slate-700">Accounting Policy:</strong> Accrual basis (IFRS compliant)</p><p><strong className="text-slate-700">Auditor Notes:</strong> {inspectedLedgerItem.notes}</p></div>
-                  <div className="p-3 rounded-lg bg-blue-50/60 border border-blue-200 space-y-1"><p className="font-bold text-blue-900 mb-1">Supporting Vouchers Attached:</p><div className="flex flex-wrap gap-1.5">{inspectedLedgerItem.vouchers.map((v, i) => (<span key={i} className="text-[10px] bg-white border border-blue-300 font-mono px-2 py-0.5 rounded font-bold text-blue-800">{v}</span>))}</div></div>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-slate-200"><button onClick={() => setInspectedLedgerItem(null)} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition">Close Audit Sheet</button></div>
+              <button onClick={() => setInspectedStudent(null)} className="w-full bg-slate-900 text-white font-bold text-xs py-2.5 rounded-lg">Close</button>
             </div>
           </div>
         )}
@@ -1098,4 +1138,4 @@ export default function EduFlowEnterpriseSuite() {
       </main>
     </div>
   );
-} 
+}
