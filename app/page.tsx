@@ -56,13 +56,17 @@ const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: strin
       return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
     case 'send':
       return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>;
+    case 'calendar':
+      return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
+    case 'printer':
+      return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>;
     default:
       return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>;
   }
 };
 
 export default function EduFlowEnterpriseSuite() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'students' | 'leads' | 'staff' | 'lms' | 'expenses' | 'finance' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'students' | 'leads' | 'staff' | 'timetable' | 'lms' | 'expenses' | 'finance' | 'settings'>('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // LMS Portal Sub-Tab State
@@ -76,6 +80,10 @@ export default function EduFlowEnterpriseSuite() {
   const [showDirectorModal, setShowDirectorModal] = useState(false);
   const [showAssignmentModal, setShowAssignmentModal] = useState(false);
   const [showTeacherUploadModal, setShowTeacherUploadModal] = useState(false);
+
+  // New Feature: Fee Challan Modal
+  const [showChallanModal, setShowChallanModal] = useState(false);
+  const [selectedChallanStudent, setSelectedChallanStudent] = useState<any | null>(null);
 
   // LMS Interactive Popups
   const [showAnnouncementsModal, setShowAnnouncementsModal] = useState(false);
@@ -134,9 +142,9 @@ export default function EduFlowEnterpriseSuite() {
   const [studentsRoster, setStudentsRoster] = useState([
     { id: 'STU-101', name: 'Usman Ali', guardian: 'Muhammad Tariq', cnic: '37405-1234567-1', phone: '+92 301 2345678', courses: ['IELTS Academic 7.5+', 'Spoken English Fluency & Accent'], shift: 'Evening Shift', timing: '06:00 PM - 08:00 PM', feePaid: 46000, feeStatus: 'Paid', attendancePct: '94%', trainer: 'Sir Saif', date: 'Today', photo: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120' },
     { id: 'STU-102', name: 'Sana Fatima', guardian: 'Rashid Khan', cnic: '61101-9876543-2', phone: '+92 322 9876543', courses: ['Spoken English Fluency & Accent'], shift: 'Morning Shift', timing: '10:00 AM - 11:30 AM', feePaid: 18000, feeStatus: 'Paid', attendancePct: '88%', trainer: 'Ms. Rabia Zafar', date: 'Today', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120' },
-    { id: 'STU-103', name: 'Muhammad Waqas', guardian: 'Abdul Ghafoor', cnic: '35202-3344556-3', phone: '+92 334 1122334', courses: ['PTE Academic Intensive'], shift: 'Noon Shift', timing: '03:00 PM - 04:30 PM', feePaid: 25000, feeStatus: 'Paid', attendancePct: '91%', trainer: 'Sir Bilal Tariq', date: 'Yesterday', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120' },
+    { id: 'STU-103', name: 'Muhammad Waqas', guardian: 'Abdul Ghafoor', cnic: '35202-3344556-3', phone: '+92 334 1122334', courses: ['PTE Academic Intensive'], shift: 'Noon Shift', timing: '03:00 PM - 04:30 PM', feePaid: 10000, feeStatus: 'Pending (15k due)', attendancePct: '91%', trainer: 'Sir Bilal Tariq', date: 'Yesterday', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120' },
     { id: 'STU-104', name: 'Maryam Noor', guardian: 'Noor Alam', cnic: '37405-5566778-4', phone: '+92 315 5566778', courses: ['Business English & Public Speaking'], shift: 'Weekend VIP', timing: '11:00 AM - 02:00 PM', feePaid: 32000, feeStatus: 'Paid', attendancePct: '100%', trainer: 'Sir Saif', date: 'Oct 20, 2026', photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120' },
-    { id: 'STU-105', name: 'Hamza Tariq', guardian: 'Tariq Mehmood', cnic: '37405-9928172-5', phone: '+92 345 9928172', courses: ['IELTS Academic 7.5+ Masterclass'], shift: 'Evening Shift', timing: '06:00 PM - 08:00 PM', feePaid: 28000, feeStatus: 'Paid', attendancePct: '96%', trainer: 'Sir Saif', date: 'Oct 19, 2026', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120' },
+    { id: 'STU-105', name: 'Hamza Tariq', guardian: 'Tariq Mehmood', cnic: '37405-9928172-5', phone: '+92 345 9928172', courses: ['IELTS Academic 7.5+ Masterclass'], shift: 'Evening Shift', timing: '06:00 PM - 08:00 PM', feePaid: 14000, feeStatus: 'Pending (14k due)', attendancePct: '96%', trainer: 'Sir Saif', date: 'Oct 19, 2026', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120' },
   ]);
 
   // 2. FACULTY & STAFF ROSTER
@@ -440,6 +448,7 @@ export default function EduFlowEnterpriseSuite() {
               { id: 'students', name: 'Students Directory & Intake', icon: 'graduation-cap', badge: studentsRoster.length },
               { id: 'leads', name: 'Leads & Retargeting Hub', icon: 'users', badge: retargetLeads.length },
               { id: 'staff', name: 'Faculty & Staff Roster', icon: 'users', badge: `${staffRoster.filter(s => s.status === 'present').length} Active` },
+              { id: 'timetable', name: 'Global Class Timetable', icon: 'calendar', badge: 'Rooms' },
               { id: 'lms', name: 'LMS Academic Portal', icon: 'video', badge: 'Online Hub' },
             ].map((item) => (
               <button
@@ -700,6 +709,64 @@ export default function EduFlowEnterpriseSuite() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* NEW VIEW: GLOBAL TIMETABLE & ROOM ALLOCATION             */}
+        {/* ======================================================== */}
+        {activeTab === 'timetable' && (
+          <div className="p-4 md:p-8 space-y-4">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-6">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base">Global Timetable & Room Matrix</h3>
+                  <p className="text-xs text-slate-400">Master schedule to prevent classroom and faculty double-booking</p>
+                </div>
+                <div className="flex gap-2 text-xs">
+                  <span className="flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> IELTS</span>
+                  <span className="flex items-center gap-1 font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Spoken</span>
+                  <span className="flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-amber-500"></span> PTE</span>
+                </div>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-center text-xs border-collapse">
+                  <thead className="bg-slate-50 text-slate-600 font-bold">
+                    <tr>
+                      <th className="p-3 border border-slate-200 w-32">Time Slot</th>
+                      <th className="p-3 border border-slate-200">Lab A (Audio)</th>
+                      <th className="p-3 border border-slate-200">Room 2 (Fluency)</th>
+                      <th className="p-3 border border-slate-200">Room 3 (General)</th>
+                      <th className="p-3 border border-slate-200">Room 4 (PTE Lab)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">10:00 AM - 11:30 AM</td>
+                      <td className="p-3 border border-slate-200 bg-emerald-50 text-emerald-900 font-bold text-[11px]">IELTS Academic<br/><span className="font-normal text-emerald-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 bg-blue-50 text-blue-900 font-bold text-[11px]">Spoken English<br/><span className="font-normal text-blue-700">Ms. Rabia</span></td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">03:00 PM - 04:30 PM</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 bg-blue-50 text-blue-900 font-bold text-[11px]">Spoken English<br/><span className="font-normal text-blue-700">Ms. Rabia</span></td>
+                      <td className="p-3 border border-slate-200 bg-purple-50 text-purple-900 font-bold text-[11px]">Business English<br/><span className="font-normal text-purple-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 bg-amber-50 text-amber-900 font-bold text-[11px]">PTE Intensive<br/><span className="font-normal text-amber-700">Sir Bilal</span></td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">06:00 PM - 08:00 PM</td>
+                      <td className="p-3 border border-slate-200 bg-emerald-50 text-emerald-900 font-bold text-[11px]">IELTS Masterclass<br/><span className="font-normal text-emerald-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Maintenance</td>
+                      <td className="p-3 border border-slate-200 bg-amber-50 text-amber-900 font-bold text-[11px]">PTE Practice<br/><span className="font-normal text-amber-700">Sir Bilal</span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1183,8 +1250,8 @@ export default function EduFlowEnterpriseSuite() {
                       <th className="p-3">Student Photo & Name</th>
                       <th className="p-3">Enrolled Program</th>
                       <th className="p-3">Shift & Timings</th>
-                      <th className="p-3">Assigned Faculty</th>
                       <th className="p-3">Tuition Fee</th>
+                      <th className="p-3">Fee Status</th>
                       <th className="p-3 text-right">Action</th>
                     </tr>
                   </thead>
@@ -1222,12 +1289,26 @@ export default function EduFlowEnterpriseSuite() {
                             <Icon name="clock" className="w-2.5 h-2.5 text-emerald-600" /> {stu.timing}
                           </span>
                         </td>
-                        <td className="p-3 font-semibold text-slate-800">{stu.trainer}</td>
                         <td className="p-3 font-semibold text-slate-800">PKR {stu.feePaid.toLocaleString()}</td>
-                        <td className="p-3 text-right">
-                          <span className="text-[11px] font-bold text-blue-600 hover:underline">
-                            View Dossier →
+                        <td className="p-3">
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${stu.feeStatus.includes('Paid') ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                            {stu.feeStatus}
                           </span>
+                        </td>
+                        <td className="p-3 text-right">
+                          <div className="flex justify-end gap-2">
+                            {stu.feeStatus.includes('Pending') && (
+                              <button 
+                                onClick={(e) => { e.stopPropagation(); setSelectedChallanStudent(stu); setShowChallanModal(true); }}
+                                className="bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white px-2.5 py-1 rounded border border-rose-200 transition text-[11px] font-bold"
+                              >
+                                Print Challan
+                              </button>
+                            )}
+                            <span className="text-[11px] font-bold text-blue-600 hover:underline mt-1 block">
+                              View Dossier →
+                            </span>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -1601,6 +1682,64 @@ export default function EduFlowEnterpriseSuite() {
         )}
 
         {/* ======================================================== */}
+        {/* NEW VIEW: GLOBAL TIMETABLE & ROOM ALLOCATION             */}
+        {/* ======================================================== */}
+        {activeTab === 'timetable' && (
+          <div className="p-4 md:p-8 space-y-4">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-6">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base">Global Timetable & Room Matrix</h3>
+                  <p className="text-xs text-slate-400">Master schedule to prevent classroom and faculty double-booking</p>
+                </div>
+                <div className="flex gap-2 text-xs">
+                  <span className="flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> IELTS</span>
+                  <span className="flex items-center gap-1 font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Spoken</span>
+                  <span className="flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded"><span className="w-2 h-2 rounded-full bg-amber-500"></span> PTE</span>
+                </div>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-center text-xs border-collapse">
+                  <thead className="bg-slate-50 text-slate-600 font-bold">
+                    <tr>
+                      <th className="p-3 border border-slate-200 w-32">Time Slot</th>
+                      <th className="p-3 border border-slate-200">Lab A (Audio)</th>
+                      <th className="p-3 border border-slate-200">Room 2 (Fluency)</th>
+                      <th className="p-3 border border-slate-200">Room 3 (General)</th>
+                      <th className="p-3 border border-slate-200">Room 4 (PTE Lab)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">10:00 AM - 11:30 AM</td>
+                      <td className="p-3 border border-slate-200 bg-emerald-50 text-emerald-900 font-bold text-[11px]">IELTS Academic<br/><span className="font-normal text-emerald-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 bg-blue-50 text-blue-900 font-bold text-[11px]">Spoken English<br/><span className="font-normal text-blue-700">Ms. Rabia</span></td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">03:00 PM - 04:30 PM</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 bg-blue-50 text-blue-900 font-bold text-[11px]">Spoken English<br/><span className="font-normal text-blue-700">Ms. Rabia</span></td>
+                      <td className="p-3 border border-slate-200 bg-purple-50 text-purple-900 font-bold text-[11px]">Business English<br/><span className="font-normal text-purple-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 bg-amber-50 text-amber-900 font-bold text-[11px]">PTE Intensive<br/><span className="font-normal text-amber-700">Sir Bilal</span></td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 border border-slate-200 font-mono font-bold bg-slate-50">06:00 PM - 08:00 PM</td>
+                      <td className="p-3 border border-slate-200 bg-emerald-50 text-emerald-900 font-bold text-[11px]">IELTS Masterclass<br/><span className="font-normal text-emerald-700">Sir Saif</span></td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Empty Slot</td>
+                      <td className="p-3 border border-slate-200 text-slate-400 italic">Maintenance</td>
+                      <td className="p-3 border border-slate-200 bg-amber-50 text-amber-900 font-bold text-[11px]">PTE Practice<br/><span className="font-normal text-amber-700">Sir Bilal</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
         {/* INSPECTION DRAWER: STUDENT FULL DOSSIER WITH IMAGE      */}
         {/* ======================================================== */}
         {inspectedStudent && (
@@ -1663,6 +1802,41 @@ export default function EduFlowEnterpriseSuite() {
                   className="px-4 py-2.5 border border-slate-300 rounded-lg text-slate-600 text-xs font-semibold"
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* NEW FEATURE: PRINTABLE FEE CHALLAN / PAYMENT MODAL       */}
+        {/* ======================================================== */}
+        {showChallanModal && selectedChallanStudent && (
+          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-xs space-y-4">
+              <div className="flex justify-between items-center border-b pb-3">
+                <div className="flex items-center gap-2">
+                  <Icon name="printer" className="w-5 h-5 text-emerald-600" />
+                  <h3 className="font-extrabold text-slate-900 text-sm">Issue Fee Challan</h3>
+                </div>
+                <button onClick={() => { setShowChallanModal(false); setSelectedChallanStudent(null); }}><Icon name="x" className="w-4 h-4 text-slate-400" /></button>
+              </div>
+
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-slate-700">
+                <h4 className="font-black text-slate-900 text-center text-sm border-b pb-2 mb-2">{institute.name}</h4>
+                <div className="flex justify-between"><span>Candidate:</span> <span className="font-bold text-slate-900">{selectedChallanStudent.name}</span></div>
+                <div className="flex justify-between"><span>Roll Number:</span> <span className="font-mono font-bold text-slate-900">{selectedChallanStudent.id}</span></div>
+                <div className="flex justify-between"><span>Program:</span> <span className="font-bold text-slate-900">{selectedChallanStudent.courses[0]}</span></div>
+                <div className="flex justify-between pt-2 border-t mt-2">
+                  <span>Pending Fee Due:</span> 
+                  <span className="font-black text-rose-600 text-sm">PKR {selectedChallanStudent.feeStatus.match(/\d+k/)?.[0]?.replace('k', ',000') || '15,000'}</span>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button onClick={() => { setShowChallanModal(false); setSelectedChallanStudent(null); }} className="px-4 py-2 border rounded-lg">Cancel</button>
+                <button onClick={() => { alert('Fee Challan Generated & Sent to Printer!'); setShowChallanModal(false); }} className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg flex items-center gap-1.5 shadow-sm">
+                  <Icon name="printer" className="w-3 h-3" /> Print Voucher
                 </button>
               </div>
             </div>
